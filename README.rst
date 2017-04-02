@@ -13,7 +13,7 @@ Files included
 
 - ``iitmdiss.cls`` - main class file
 
-- ``iitm.bst`` - ``natbib`` bibliography style
+- ``iitm.bst`` - bibliography style
 
 - ``atbeginend.sty`` - for removing space around and within environments
   [#squeeze]_
@@ -23,6 +23,8 @@ Files included
 - ``synposis.tex`` - sample synopsis
 
 - ``thesis.tex`` - sample thesis
+
+- ``refs.bib`` - sample bibliography file
 
 
 LaTeX packages required
