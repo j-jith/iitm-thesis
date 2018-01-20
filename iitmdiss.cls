@@ -44,6 +44,32 @@
 % March 2005.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Changes:
+% ========
+%
+% - Removed the obsolete ``compat2`` option from the ``geometry`` package.
+%
+% - Added ``emptypage`` package to disable page numbering in blank pages.
+%
+% - Added ``twoside`` option to ``article`` (synopsis) and ``report`` (thesis)
+%   classes for left-margin adjustment during two-sided printing. Also, you can
+%   now use ``\cleardoublepage`` to start a new page on the right hand side.
+%
+% - Added ``openright`` option to ``report`` (thesis) class to ensure chapters
+%   start on the right hand side (odd page numbers)
+%
+% - Added ``\pagenumbering{gobble}`` to "Title", "Quotation", "Dedication", and
+%   "Thesis Certificate" pages to ensure they start on the right hand side (odd
+%   page numbers)
+%
+% - Roman page numbering now starts from the "Acknowledgements" page.
+%
+% Jithin Jith <j.jith@outlook.com>
+% Jan 2018
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \NeedsTeXFormat{LaTeX2e}
 
 \ProvidesClass{iitmdiss}[2005/03/09 Class for IIT-Madras Dissertations]
@@ -64,21 +90,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Load the correct class.
 \if@Synopsis
-    \LoadClass[12pt,a4paper]{article}
+    \LoadClass[12pt,a4paper,twoside]{article}
 \else
-    \LoadClass[12pt,a4paper]{report}
+    \LoadClass[12pt,a4paper,twoside,openright]{report}
 \fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Geometry and page layout
-\RequirePackage[%compat2,
-                a4paper,left=1.5in,right=1in,top=1in,bottom=0.667in,
+\RequirePackage[a4paper,
+                left=1.5in,right=1in,top=1in,bottom=0.667in,
                 nohead]{geometry}[2002/07/08]
 \parskip 8pt
 
 \renewcommand{\@pnumwidth}{2.5em}
 %\renewcommand{\@tocrmarg}{2.5em}
 
+\RequirePackage{emptypage} % avoid page numbers in blank pages
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Using setspace to do the single/double spacing.  Setspace also
@@ -132,7 +159,7 @@
   \thispagestyle{empty}
   \newpage
   \null
-  \setcounter{page}{0}
+  \pagenumbering{gobble}
   \parskip=0pt
   \begin{center}%
   \let \footnote \thanks
@@ -217,13 +244,17 @@
 \else
    % QUOTATIONS
    %
-   \def\quotations{\chapter*{\centerline{QUOTATIONS}}
+   \def\quotations{%
+       \chapter*{\centerline{QUOTATIONS}}
+       \pagenumbering{gobble}
    %\addcontentsline{toc}{chapter}{QUOTATIONS}
    }
 
    % DEDICATION
    %
-   \def\dedication{\chapter*{\centerline{DEDICATION}}
+   \def\dedication{
+       \chapter*{\centerline{DEDICATION}}
+       \pagenumbering{gobble}
    %\addcontentsline{toc}{chapter}{DEDICATION}
    }
 
@@ -233,37 +264,43 @@
    %     comment the following lines out to get it working.
    %
    \def\certificate{%% A preliminary chapter
-     \clearpage
+     \cleardoublepage
      \vspace*{36pt}
      \centerline{\Large \bf THESIS CERTIFICATE}
      \vskip 25pt
      \thispagestyle{empty}
      \typeout{Certificate}
-     \setcounter{page}{0}
+     \pagenumbering{gobble}
    }
 
    % ACKNOWLEDGEMENTS
    %
-   \def\acknowledgements{\chapter*{\centerline{ACKNOWLEDGEMENTS}}
-     \addcontentsline{toc}{chapter}{ACKNOWLEDGEMENTS}
+   \def\acknowledgements{%
+       \chapter*{\centerline{ACKNOWLEDGEMENTS}}
+       \pagenumbering{roman}
+       \setcounter{page}{1} % start page numbering from acknowledgements
+       \addcontentsline{toc}{chapter}{ACKNOWLEDGEMENTS}
    }
 
    % ABSTRACT
    %   - this produces pages suitable for an IITM Abstract
-   \def\abstract{\chapter*{\centerline{ABSTRACT}}
-   \addcontentsline{toc}{chapter}{ABSTRACT}
+   \def\abstract{%
+       \chapter*{\centerline{ABSTRACT}}
+       \addcontentsline{toc}{chapter}{ABSTRACT}
    }
 
    % GLOSSARY
    %
-   \def\glossary{\chapter*{\centerline{GLOSSARY}}
-   \addcontentsline{toc}{chapter}{GLOSSARY}
+   \def\glossary{
+       \chapter*{\centerline{GLOSSARY}}
+       \addcontentsline{toc}{chapter}{GLOSSARY}
    }
 
    % ABBREVIATIONS
    %
-   \def\abbreviations{\chapter*{\centerline{ABBREVIATIONS}}
-   \addcontentsline{toc}{chapter}{ABBREVIATIONS}
+   \def\abbreviations{
+       \chapter*{\centerline{ABBREVIATIONS}}
+       \addcontentsline{toc}{chapter}{ABBREVIATIONS}
    }
 
    % Use the nomencl package for the NOTATION section.

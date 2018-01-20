@@ -2,11 +2,32 @@ iitm-thesis
 ===========
 
 This is a LaTeX class for preparing PhD, MS, M.Tech and B.Tech thesis according
-to the IIT Madras guidelines. The original class, which can be found
-`here <https://mat.iitm.ac.in/usefullink.html>`_, passes some obsolete options
-to certain packages. This version of the class gets rid of these options and
-has been tested with TeX Live 2016.
+to the IIT Madras guidelines. The original class, which can be found `here
+<https://mat.iitm.ac.in/usefullink.html>`_, was last updated in March
+2005 and passes some obsolete options to certain packages. In addition, it does
+not adhere to certain guidelines like "chapters should start on odd-numbered
+pages". This version of the class aims to fix these issues. In order to do so,
+the following changes have been made to the original class:
 
+- Removed the obsolete ``compat2`` option from the ``geometry`` package.
+
+- Added ``emptypage`` package to disable page numbering in blank pages.
+
+- Added ``twoside`` option to ``article`` (synopsis) and ``report`` (thesis)
+  classes for left-margin adjustment during two-sided printing. Also, you can
+  now use ``\cleardoublepage`` to start a new page on the right hand side.
+
+- Added ``openright`` option to ``report`` (thesis) class to ensure chapters
+  start on the right hand side (odd page numbers)
+
+- Added ``\pagenumbering{gobble}`` to "Title", "Quotation", "Dedication", and
+  "Thesis Certificate" pages to ensure they start on the right hand side (odd
+  page numbers)
+
+- Roman page numbering now starts from the "Acknowledgements" page.
+
+This class was tested on TeX Live 2016. Please do not use an older
+distribution.
 
 Files included
 --------------
