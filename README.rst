@@ -59,6 +59,8 @@ LaTeX packages required
 
 - `natbib <https://www.ctan.org/pkg/natbib>`_
 
+- `emptypage <https://www.ctan.org/pkg/emptypage>`_
+
 For compiling the sample synopsis and thesis
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
